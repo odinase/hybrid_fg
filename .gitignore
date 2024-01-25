@@ -1,0 +1,6 @@
+main
+build/
+!.vscode/
+.vscode/*
+!.vscode/settings.json
+hybrid_fg/__pycache__
