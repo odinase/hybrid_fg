@@ -10,12 +10,13 @@
 
 namespace fmt
 {
+#ifdef __linux__
 template <typename Derived>
 struct formatter<Eigen::MatrixBase<Derived>>
 {
     auto format(Eigen::MatrixBase<Derived>&& m, format_context& ctx) const
     {
-        std::stringstream ss{};
+        const std::stringstream ss{};
         ss << m;
         const std::string s = ss.str();
         return format(s, ctx);
@@ -33,6 +34,13 @@ FMT_INLINE void println(format_string<T...> fmt, T&&... args)
 {
     return fmt::println(stdout, fmt, std::forward<T>(args)...);
 }
+#elif __APPLE__
+
+template <typename Derived>
+struct formatter<Eigen::MatrixBase<Derived>> : ostream_formatter {};
+
+#endif
+
 }  // namespace fmt
 
 #endif  // HYBRID_FG_UTILS_FMT_HPP
