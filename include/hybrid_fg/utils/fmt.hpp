@@ -4,6 +4,7 @@
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
+#include <gtsam/hybrid/HybridNonlinearFactorGraph.h>
 
 #include <Eigen/Core>
 #include <iostream>
@@ -23,6 +24,19 @@ struct formatter<Eigen::MatrixBase<Derived>>
     }
 };
 
+// template <>
+// struct formatter<gtsam::Values>
+// {
+//     auto format(gtsam::Values&& m, format_context& ctx) -> decltype(ctx.out()) const
+//     {
+//         std::string s{};
+//         for (auto&& [k, v] : m) {
+//             s += fmt::format("{}: {}", k, v);
+//         }
+//         return format_to(ctx.out(), "{}", s);
+//     }
+// };
+
 template <typename... T>
 FMT_INLINE void println(std::FILE* f, format_string<T...> fmt, T&&... args)
 {
@@ -37,7 +51,9 @@ FMT_INLINE void println(format_string<T...> fmt, T&&... args)
 #elif __APPLE__
 
 template <typename Derived>
-struct formatter<Eigen::MatrixBase<Derived>> : ostream_formatter {};
+struct formatter<Eigen::MatrixBase<Derived>> : ostream_formatter
+{
+};
 
 #endif
 

@@ -9,10 +9,9 @@ target_link_libraries(main PUBLIC
     gtsam
 )
 
-target_include_directories(main
-    PUBLIC 
-        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
+target_include_directories(main PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 
 install(TARGETS main
